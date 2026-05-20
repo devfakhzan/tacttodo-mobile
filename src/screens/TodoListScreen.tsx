@@ -19,6 +19,7 @@ import {
   ME_QUERY,
   TODOS_QUERY,
   TOGGLE_TODO_MUTATION,
+  UPDATE_TODO_MUTATION,
 } from "../graphql/operations";
 import type { Todo, User } from "../graphql/types";
 import { useOnlineRefetch } from "../hooks/useOnlineRefetch";
@@ -50,9 +51,13 @@ export function TodoListScreen() {
     refetchQueries: [{ query: TODOS_QUERY }],
   });
 
+  const [updateTodo, { loading: updating }] = useMutation(UPDATE_TODO_MUTATION, {
+    refetchQueries: [{ query: TODOS_QUERY }],
+  });
+
   const todos = data?.todos ?? [];
   const email = meData?.me?.email;
-  const busy = creating || deleting || toggling;
+  const busy = creating || deleting || toggling || updating;
   const refreshing = networkStatus === 4;
 
   async function handleCreate() {
@@ -70,6 +75,10 @@ export function TodoListScreen() {
 
   async function handleDelete(id: string) {
     await deleteTodo({ variables: { id } });
+  }
+
+  async function handleUpdate(id: string, title: string) {
+    await updateTodo({ variables: { id, title } });
   }
 
   return (
@@ -123,6 +132,7 @@ export function TodoListScreen() {
               todo={item}
               onToggle={(id) => void handleToggle(id)}
               onDelete={(id) => void handleDelete(id)}
+              onUpdate={(id, title) => void handleUpdate(id, title)}
               disabled={busy}
             />
           )}

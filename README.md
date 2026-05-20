@@ -41,7 +41,7 @@ Press `a` for Android emulator, `i` for iOS simulator, or scan the QR code with 
 ## Features
 
 - Email/password login and signup
-- List, create, toggle, and delete todos
+- List, create, edit, toggle, and delete todos
 - Apollo cache and auth token persisted in AsyncStorage
 - Refetch queries when the device comes back online
 
