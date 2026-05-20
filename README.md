@@ -49,7 +49,7 @@ Press `a` for Android emulator, `i` for iOS simulator, or scan the QR code with 
 
 - **Stack:** Expo SDK 54, TypeScript, React Navigation (native stack)
 - **Screens:** Login (auth) and Todos (main). Stack switches based on stored token.
-- **Data:** Apollo Client with auth link, same GraphQL operations as web
+- **Data:** Apollo Client with auth link, same GraphQL operations as web. API backed by DynamoDB on AWS Lambda.
 - **Offline:** `apollo3-cache-persist` saves the cache to AsyncStorage. Token stored separately. `useOnlineRefetch` refetches todos when NetInfo reports the device is back online.
 
 ## Time
